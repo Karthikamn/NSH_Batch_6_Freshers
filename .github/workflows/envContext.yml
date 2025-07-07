@@ -1,0 +1,16 @@
+name: Env Context
+
+on:
+ workflow_dispatch
+env:
+ MY_VAR: "workflow"
+jobs:
+ env_context:
+  runs-on: ubuntu-latest
+  env:
+   MY_VAR: "jobs"
+  steps:
+   - name: Display env
+     env:
+      MY_VAR: "steps"
+      run: echo '${{env.MY_VAR}}'
