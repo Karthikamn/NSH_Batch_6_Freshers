@@ -24,4 +24,4 @@ jobs:
      with:
        java-version: '17'
        distribution: 'microsoft'
-   - run: echo 'secret ${{secrets.secret}}'
+   - run: echo ' ${{vars.var}}'
