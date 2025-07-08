@@ -1,32 +1,27 @@
 name: First Workflow
 
-run-name: DEBUG| ${{inputs.debug}}
+
 
 on:
  workflow_dispatch:
   inputs:
-   debug:
-    type: boolean
-    default: false
+   target-environment:
+    type: environment
+    default: test
+    
   
 
 jobs:
  code-checkout:
-  runs-on: ${{matrix.os}}
-  strategy:
-    fail-fast: false
-    matrix:
-     os: [ubuntu-latest, windows-latest]
-     java-version: ['17', '21']
-     include:
-      - java-version: '30'
-        continue-on-error: true
+  runs-on: ubuntu-latest
+  environment: ${{inputs. target-environment}}
+   
   steps:
    - name: Code checkout  # GITHUB_WORKSPACE 
      uses: actions/checkout@v4.2.2
    - name: Setup Java JDK
      uses: actions/setup-java@v3.14.1
      with:
-       java-version: ${{matrix.java-version}}
+       java-version: '17'
        distribution: 'microsoft'
- 
+   - run: echo 'secret ${{secrets.secret}}'
