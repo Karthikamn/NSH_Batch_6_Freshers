@@ -1,0 +1,27 @@
+name: First Workflow
+
+
+
+on:
+ workflow_dispatch:
+  inputs:
+   target-environment:
+    type: environment
+    default: test
+    
+  
+
+jobs:
+ code-checkout:
+  runs-on: self-hosted
+  environment: ${{inputs. target-environment}}
+   
+  steps:
+   - name: Code checkout  # GITHUB_WORKSPACE 
+     uses: actions/checkout@v4.2.2
+   - name: Setup Java JDK
+     uses: actions/setup-java@v3.14.1
+     with:
+       java-version: '17'
+       distribution: 'microsoft'
+   - run: echo ' ${{vars.var}}'
